@@ -12,7 +12,7 @@ mongoose.connect("mongodb://localhost:27017/nodejs")
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("Welcome to the Names API");
+  res.send(`<h1>Welcome to the Names API </h1>`);
 });
 
 

@@ -1,26 +1,31 @@
 import express from "express";
-import namesRouter from "./routes/names.js";
 import mongoose from "mongoose";
+
+import namesRouter from "./routes/names.js";
+import registerRouter from "./routes/register.js"; 
 
 const app = express();
 const PORT = 5000;
 
-mongoose.connect("mongodb://localhost:27017/nodejs")
-.then(()=>console.log("mongodb is conneted "))
-.catch((err)=>console.log(err));
 
 app.use(express.json());
 
+// Connect to MongoDB
+mongoose
+  .connect("mongodb://localhost:27017/nodejs")
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch((err) => console.error("❌ MongoDB error:", err));
+
+// Home route
 app.get("/", (req, res) => {
-  res.send(`<h1>Welcome to the Names API </h1>`);
+  res.send("<h1>Welcome to the Names API</h1>");
 });
 
 
-
-
 app.use("/names", namesRouter);
+app.use("/register", registerRouter); 
 
-// START THE SERVER
-app.listen(5000, () => {
-  console.log(`Server running on port ${PORT }`);
+
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
 });
